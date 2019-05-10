@@ -405,6 +405,7 @@
 function generateSummary() {
 
     // Add .padEnd() method to better format strings
+    // takes options for number of spaces and '.' characters to insert => .padEnd(25, '.');
     String.prototype.padEnd = function padEnd(targetLength,padString) {
         targetLength = targetLength>>0; //floor if number or convert non-number to 0;
         padString = String((typeof padString !== 'undefined' ? padString : ' '));
