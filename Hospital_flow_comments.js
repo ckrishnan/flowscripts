@@ -404,49 +404,48 @@
 
 function generateSummary() {
     
-    // Add String.repeat prototype
+    // Add .repeat method for padEnd method
     if (!String.prototype.repeat) {
-  String.prototype.repeat = function(count) {
-    'use strict';
-    if (this == null)
-      throw new TypeError('can\'t convert ' + this + ' to object');
+      String.prototype.repeat = function(count) {
+        'use strict';
+        if (this == null)
+          throw new TypeError('can\'t convert ' + this + ' to object');
 
-    var str = '' + this;
-    // To convert string to integer.
-    count = +count;
-    // Check NaN
-    if (count != count)
-      count = 0;
+        var str = '' + this;
+        // To convert string to integer.
+        count = +count;
+        // Check NaN
+        if (count != count)
+          count = 0;
 
-    if (count < 0)
-      throw new RangeError('repeat count must be non-negative');
+        if (count < 0)
+          throw new RangeError('repeat count must be non-negative');
 
-    if (count == Infinity)
-      throw new RangeError('repeat count must be less than infinity');
+        if (count == Infinity)
+          throw new RangeError('repeat count must be less than infinity');
 
-    count = Math.floor(count);
-    if (str.length == 0 || count == 0)
-      return '';
+        count = Math.floor(count);
+        if (str.length == 0 || count == 0)
+          return '';
 
-    // Ensuring count is a 31-bit integer allows us to heavily optimize the
-    // main part. But anyway, most current (August 2014) browsers can't handle
-    // strings 1 << 28 chars or longer, so:
-    if (str.length * count >= 1 << 28)
-      throw new RangeError('repeat count must not overflow maximum string size');
+        // Ensuring count is a 31-bit integer allows us to heavily optimize the
+        // main part. But anyway, most current (August 2014) browsers can't handle
+        // strings 1 << 28 chars or longer, so:
+        if (str.length * count >= 1 << 28)
+          throw new RangeError('repeat count must not overflow maximum string size');
 
-    var maxCount = str.length * count;
-    count = Math.floor(Math.log(count) / Math.log(2));
-    while (count) {
-       str += str;
-       count--;
+        var maxCount = str.length * count;
+        count = Math.floor(Math.log(count) / Math.log(2));
+        while (count) {
+          str += str;
+          count--;
+        }
+        str += str.substring(0, maxCount - str.length);
+        return str;
+      }
     }
-    str += str.substring(0, maxCount - str.length);
-    return str;
-  }
-}
 
     // Add .padEnd() method to better format strings
-    // takes options for number of spaces and '.' characters to insert => .padEnd(25, '.');
     String.prototype.padEnd = function padEnd(targetLength,padString) {
         targetLength = targetLength>>0; //floor if number or convert non-number to 0;
         padString = String((typeof padString !== 'undefined' ? padString : ' '));
@@ -471,6 +470,12 @@ function generateSummary() {
     var blast = this.getField("Diff#4").valueAsString;
     var debris = this.getField("Diff#5").valueAsString;
     
+    var bioCD19 = this.getField("bioCD19").valueAsString;
+    var bioCD20 = this.getField("bioCD20").valueAsString;
+    var bioCD22 = this.getField("bioCD22").valueAsString;
+    var bioCD33 = this.getField("bioCD33").valueAsString;
+    var bioCD38 = this.getField("bioCD38").valueAsString;
+
     var wild1 = this.getField("Wildcard1").valueAsString;
     var wild2 = this.getField("Wildcard2").valueAsString;
     var wild3 = this.getField("Wildcard3").valueAsString;
@@ -541,9 +546,25 @@ function generateSummary() {
     s = s+"NK-cells:".padEnd(24)+nk+"%\n"};
     if (nonheme != ''){
     s = s+"Non-hematolymphoid:".padEnd(24)+nonheme+"%\n"};
+
+    var b = "\nTherapeutic Biomarker Status:\n";
+    if (bioCD19 != ''){
+      b = b+"CD19 expression:".padEnd(24)+bioCD19+"%\n"};
+    if (bioCD20 != ''){
+      b = b+"CD20 expression:".padEnd(24)+bioCD20+"%\n"};
+    if (bioCD22 != ''){
+      b = b+"CD22 expression:".padEnd(24)+bioCD22+"%\n"};
+    if (bioCD33 != ''){
+      b = b+"CD33 expression:".padEnd(24)+bioCD33+"%\n"};
+    if (bioCD38 != ''){
+      b = b+"CD38 expression:".padEnd(24)+bioCD38+"%\n"};
+    if ((bioCD19 == '') && (bioCD20 == '') && (bioCD22 == '') && (bioCD33 == '') && (bioCD38 == '')){
+      b = b+"No relevant abnormal populations\n"
+    };                
     
     
     s = s + "\nResults:\n"+this.getField("Finaldx").valueAsString+"\n\n"+
+    b+"\n"+
     "Interpretation: " + this.getField("Interp text").valueAsString+ " \n\n"+
     "Antibodies tested: Total, " + this.getField("Abtotal").valueAsString + ": " + this.getField("AbList").valueAsString+"\n\n"+
     "QUALITY CONTROL DISCLAIMER: A quality control direct smear or cytospin was reviewed in conjunction with the analytic data, to assess the specimen integrity.\n\n"+
