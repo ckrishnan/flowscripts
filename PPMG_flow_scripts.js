@@ -72,6 +72,12 @@ function generateSummary() {
   var blast = this.getField("Diff#4").valueAsString;
   var debris = this.getField("Diff#5").valueAsString;
   
+  var bioCD19 = this.getField("bioCD19").valueAsString;
+  var bioCD20 = this.getField("bioCD20").valueAsString;
+  var bioCD22 = this.getField("bioCD22").valueAsString;
+  var bioCD33 = this.getField("bioCD33").valueAsString;
+  var bioCD38 = this.getField("bioCD38").valueAsString;
+
   var wild1 = this.getField("Wildcard1").valueAsString;
   var wild2 = this.getField("Wildcard2").valueAsString;
   var wild3 = this.getField("Wildcard3").valueAsString;
@@ -135,13 +141,28 @@ function generateSummary() {
   if (hemat != ''){
   s = s+"Hematogones:".padEnd(24)+hemat+"%\n"};
   if (plasma != ''){
-  s = s+"Plasma cells:".padEnd(24)+plasma+"%\n"};
+  s = s+"Plasma cells:".padEnd(24)+plasma+"% (K:L ratio = "+plratio+") \n"};
   if (other != ''){
   s = s+"Others:".padEnd(24)+other+"%\n"};
   if (nk != ''){
   s = s+"NK-cells:".padEnd(24)+nk+"%\n"};
   if (nonheme != ''){
   s = s+"Non-hematolymphoid:".padEnd(24)+nonheme+"%\n"};
+
+  var b = "\nBiomarker Status (% of abnormal cells expressing therapeutic targets): \n";
+  if (bioCD19 != ''){
+    b = b+"CD19 expression:".padEnd(24)+bioCD19+"%\n"};
+  if (bioCD20 != ''){
+    b = b+"CD20 expression:".padEnd(24)+bioCD20+"%\n"};
+  if (bioCD22 != ''){
+    b = b+"CD22 expression:".padEnd(24)+bioCD22+"%\n"};
+  if (bioCD33 != ''){
+    b = b+"CD33 expression:".padEnd(24)+bioCD33+"%\n"};
+  if (bioCD38 != ''){
+    b = b+"CD38 expression:".padEnd(24)+bioCD38+"%\n"};
+  if ((bioCD19 == '') && (bioCD20 == '') && (bioCD22 == '') && (bioCD33 == '') && (bioCD38 == '')){
+    b = b+"No relevant abnormal populations\n"
+  };      
   
   
   s = s + "\nResults:\n"+this.getField("Finaldx").valueAsString+"\n\n"+
