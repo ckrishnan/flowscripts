@@ -6,46 +6,47 @@
 
 
 function generateSummary() {
-  // Add String.repeat prototype
+    
+  // Add .repeat method for padEnd method
   if (!String.prototype.repeat) {
-  String.prototype.repeat = function(count) {
-    'use strict';
-    if (this == null)
-      throw new TypeError('can\'t convert ' + this + ' to object');
+    String.prototype.repeat = function(count) {
+      'use strict';
+      if (this == null)
+        throw new TypeError('can\'t convert ' + this + ' to object');
 
-    var str = '' + this;
-    // To convert string to integer.
-    count = +count;
-    // Check NaN
-    if (count != count)
-      count = 0;
+      var str = '' + this;
+      // To convert string to integer.
+      count = +count;
+      // Check NaN
+      if (count != count)
+        count = 0;
 
-    if (count < 0)
-      throw new RangeError('repeat count must be non-negative');
+      if (count < 0)
+        throw new RangeError('repeat count must be non-negative');
 
-    if (count == Infinity)
-      throw new RangeError('repeat count must be less than infinity');
+      if (count == Infinity)
+        throw new RangeError('repeat count must be less than infinity');
 
-    count = Math.floor(count);
-    if (str.length == 0 || count == 0)
-      return '';
+      count = Math.floor(count);
+      if (str.length == 0 || count == 0)
+        return '';
 
-    // Ensuring count is a 31-bit integer allows us to heavily optimize the
-    // main part. But anyway, most current (August 2014) browsers can't handle
-    // strings 1 << 28 chars or longer, so:
-    if (str.length * count >= 1 << 28)
-      throw new RangeError('repeat count must not overflow maximum string size');
+      // Ensuring count is a 31-bit integer allows us to heavily optimize the
+      // main part. But anyway, most current (August 2014) browsers can't handle
+      // strings 1 << 28 chars or longer, so:
+      if (str.length * count >= 1 << 28)
+        throw new RangeError('repeat count must not overflow maximum string size');
 
-    var maxCount = str.length * count;
-    count = Math.floor(Math.log(count) / Math.log(2));
-    while (count) {
-       str += str;
-       count--;
+      var maxCount = str.length * count;
+      count = Math.floor(Math.log(count) / Math.log(2));
+      while (count) {
+        str += str;
+        count--;
+      }
+      str += str.substring(0, maxCount - str.length);
+      return str;
     }
-    str += str.substring(0, maxCount - str.length);
-    return str;
   }
-}
 
   // Add .padEnd() method to better format strings
   String.prototype.padEnd = function padEnd(targetLength,padString) {
@@ -162,10 +163,11 @@ function generateSummary() {
     b = b+"CD38 expression:".padEnd(24)+bioCD38+"%\n"};
   if ((bioCD19 == '') && (bioCD20 == '') && (bioCD22 == '') && (bioCD33 == '') && (bioCD38 == '')){
     b = b+"No relevant abnormal populations\n"
-  };      
+  };                
   
   
   s = s + "\nResults:\n"+this.getField("Finaldx").valueAsString+"\n\n"+
+  b+"\n"+
   "Interpretation: " + this.getField("Interp text").valueAsString+ " \n\n"+
   "Antibodies tested: Total, " + this.getField("Abtotal").valueAsString + ": " + this.getField("AbList").valueAsString+"\n\nTECHNICAL WORK PERFORMED BY PENNINSULA PATHOLOGISTS MEDICAL GROUP LABORATORY (393 East Grand Ave, Suite 1, South San Francisco, CA 94080. Ph. 650-616-2951. CLIA#05D1029487). Flow cytometry testing was developed and the performance characteristics determined by PPMG Flow cytometry laboratory. They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  These tests are used for clinical purposes.  They should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.\n\n"+
   "PROFESSIONAL INTERPRETATION PERFORMED BY CLINICAL PATHOLOGY ASSOCIATES (3445 Executive Center Drive, Suite 250, Austin, TX 78731. CLIA#45D2052154)\n\n"+
