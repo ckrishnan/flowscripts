@@ -64,6 +64,7 @@ function generateSummary() {
       }
   };
 
+
   var viability = this.getField("Viability").valueAsString;
   var lymphs = this.getField("Diff#1").valueAsString;
   var blym = this.getField("CD19 LYMPHS").valueAsString;
@@ -169,7 +170,7 @@ function generateSummary() {
   s = s + "\nResults:\n"+this.getField("Finaldx").valueAsString+"\n\n"+
   b+"\n"+
   "Interpretation: " + this.getField("Interp text").valueAsString+ " \n\n"+
-  "Antibodies tested: Total, " + this.getField("Abtotal").valueAsString + ": " + this.getField("AbList").valueAsString+"\n\nTECHNICAL WORK PERFORMED BY PENNINSULA PATHOLOGISTS MEDICAL GROUP LABORATORY (393 East Grand Ave, Suite 1, South San Francisco, CA 94080. Ph. 650-616-2951. CLIA#05D1029487). Flow cytometry testing was developed and the performance characteristics determined by PPMG Flow cytometry laboratory. They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  These tests are used for clinical purposes.  They should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.\n\n"+
+  "Antibodies tested: Total, " + this.getField("Abtotal").valueAsString + ": " + this.getField("AbList").valueAsString+"\n\nTECHNICAL WORK PERFORMED BY PENNINSULA PATHOLOGISTS MEDICAL GROUP LABORATORY (383 East Grand Ave, Suite A, South San Francisco, CA 94080. Ph. 650-616-2951. CLIA#05D1029487). Flow cytometry testing was developed and the performance characteristics determined by PPMG Flow cytometry laboratory. They have not been cleared or approved by the U.S. Food and Drug Administration.  The FDA has determined that such clearance or approval is not necessary.  These tests are used for clinical purposes.  They should not be regarded as investigational or for research.  This laboratory is certified under the Clinical Laboratory Improvement Amendments of 1988 (CLIA-88) as qualified to perform high complexity clinical laboratory testing.\n\n"+
   "PROFESSIONAL INTERPRETATION PERFORMED BY CLINICAL PATHOLOGY ASSOCIATES (3445 Executive Center Drive, Suite 250, Austin, TX 78731. CLIA#45D2052154)\n\n"+
   "Some antigens evaluated by flow cytometry may also be evaluated by immunohistochemistry when deemed medically necessary. Concurrent evaluation by IHC on tissue sections is indicated in some cases in order to further characterize or categorize tumors.  IHC may also be necessary to correlate immunophenotype with cell morphology and determine extent of involvement, spatial pattern, and focality of potential disease distribution.";
       
