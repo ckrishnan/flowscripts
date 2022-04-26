@@ -599,7 +599,7 @@ function generateSummary() {
   if (bioCD38 != ''){
     b = b+"CD38 expression:".padEnd(24)+bioCD38+"%\n"};
   if ((bioCD19 == '') && (bioCD20 == '') && (bioCD22 == '') && (bioCD33 == '') && (bioCD38 == '')){
-    b = b+"No relevant abnormal populations\n"
+    b = ""
   };                
   
   
